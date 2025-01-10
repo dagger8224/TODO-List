@@ -1,0 +1,44 @@
+<html>
+    <script type="dagger/modules">
+        {
+            view: '#view',
+            _: './script.js'
+        }
+    </script>
+    <template id="view">
+        <div +load="load($route.params.id)" +loaded="loaded($scope, $route)">
+            <p>
+                <a href="/" class="btn btn-outline-secondary">
+                    Go back to list
+                </a>
+            </p>
+            <form +submit#prevent="onSubmit(model)">
+                <h1>${ model.id ? 'Edit Post' : 'Create new Post' }</h1>
+                <div class="mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        *value="model.title"
+                        placeholder="Post Title"
+                    >
+                </div>
+                <div class="mb-3">
+                    <textarea
+                        type="text"
+                        class="form-control"
+                        *value="model.body"
+                        placeholder="Post Body">
+                    </textarea>
+                </div>
+                <p>
+                    <button
+                        *disabled="!model.title || !model.body"
+                        class="btn btn-success"
+                        type="submit">
+                        Submit
+                    </button>
+                </p>
+            </form>
+        </div>
+    </template>
+</html>
